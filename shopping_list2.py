@@ -12,17 +12,17 @@ def show_list():
     for item in shopping_list:
         print(item)
 
-def add_to_list():
+def add_to_list(new_item):
     shopping_list.append(new_item)
     print("Added {}. List now has {} items.".format(new_item, len(shopping_list)))
-    
+
 show_help()
 
 while True:
     #ask for new items
     new_item = input("> ")
     #quit app
-    if new_item == 'Done':
+    if new_item == 'DONE':
         break
     elif new_item == 'HELP':
         show_help()
@@ -31,4 +31,5 @@ while True:
         show_list()
         continue
     add_to_list(new_item)
-    show_list()
+
+show_list()
