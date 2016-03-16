@@ -47,14 +47,14 @@ def move_monster(monster, door):
     #get monster location
     i, j = monster
     #move closer to door
-    if x > i and door != monster:
+    if x > i and door != (i+1,j):
         i += 1
-    elif y > j and door != monster:
+    elif y > j and door != (i,j+1):
         j += 1
-    elif x < i and door != monster:
+    elif x < i and door != (i-1+j):
         i -= 1
-    elif y < j and door != monster:
-        j += 1
+    elif y < j and door != (i,j-1):
+        j -= 1
     else:
         i, j
 
