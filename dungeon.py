@@ -103,14 +103,15 @@ def draw_map(player):
             if cell == player:
                 print(tile.format('X|'))
             if cell == monster:
-                print(tile.format('M'))
+                print(tile.format('M|'))
             else:
                 print(tile.format('_|'))
 
 
 monster, door, player = get_locations()
 print("Welcome to the dungeon!")
-print("Enter QUIT to quit")
+print("Enter quit to exit")
+print("Enter left, right, up or down to move!")
 
 while True:
     moves = get_moves(player)
