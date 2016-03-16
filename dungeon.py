@@ -41,19 +41,38 @@ def move_player(player, move):
 
     return x,y
 
-def move_monster(monster, door):
+def move_monster(monster, door, player):
     #get door location
-    x, y = door
+    a, b = player
+    c, d = door
+
+    # x = a - c
+    # y = b - d
+    if a - c > 0:
+        x = a - c -2
+    elif a - c < 0:
+        x = c - a -2
+    elif a - c == 0:
+        x = 0
+
+    if b - d > 0:
+        y = b - d -1
+    elif b - d < 0:
+        y = d - b -1
+    elif b - d == 0:
+        y = 0
+
     #get monster location
     i, j = monster
     #move closer to door
-    if x > i and door != (i+1,j):
+    print(monster)
+    if x > i and x > 0 and door != (i+1,j):
         i += 1
-    elif y > j and door != (i,j+1):
-        j += 1
-    elif x < i and door != (i-1+j):
+    if x < i and x > 0 and door != (i-1+j):
         i -= 1
-    elif y < j and door != (i,j-1):
+    if y > j and y > 0 and door != (i,j+1):
+        j += 1
+    if y < j and y > 0 and door != (i,j-1):
         j -= 1
     else:
         i, j
@@ -91,8 +110,8 @@ def draw_map(player):
                     90,91,92,93,94,95,96,97,98]:
             if cell == door:
                 print(tile.format('D'), end='')
-            elif cell == monster:
-                print(tile.format('M'), end='')
+            # elif cell == monster:
+            #     print(tile.format('M'), end='')
             elif cell == player:
                 print(tile.format('X'), end='')
             else:
@@ -102,8 +121,8 @@ def draw_map(player):
                 print(tile.format('D|'))
             elif cell == player:
                 print(tile.format('X|'))
-            elif cell == monster:
-                print(tile.format('M|'))
+            # elif cell == monster:
+            #     print(tile.format('M|'))
             else:
                 print(tile.format('_|'))
 
@@ -126,9 +145,10 @@ while True:
 
     if move in moves:
         player = move_player(player, move)
-        monster = move_monster(monster, door)
+        monster = move_monster(monster, door, player)
     else:
         print("** Walls are hard, stop running into them! **")
+        monster = move_monster(monster, door, player)
         continue
     if player == door:
         print("You escaped!!")
