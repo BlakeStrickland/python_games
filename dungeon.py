@@ -100,9 +100,9 @@ def draw_map(player):
         else:
             if cell == door:
                 print(tile.format('D|'))
-            if cell == player:
+            elif cell == player:
                 print(tile.format('X|'))
-            if cell == monster:
+            elif cell == monster:
                 print(tile.format('M|'))
             else:
                 print(tile.format('_|'))
