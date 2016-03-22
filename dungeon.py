@@ -112,7 +112,7 @@ def get_y(cell):
     return cell[1]
 
 def max_x(grid):
-    return max(grid, key=get_x[0]
+    return max(grid, key=get_x)[0]
 
 def max_y(grid):
     return max(grid, key=get_y)[1]
