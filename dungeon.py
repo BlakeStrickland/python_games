@@ -109,16 +109,16 @@ def move_monster(monster, door, player):
 
     return i, j
 
-def get_moves(player):
+def get_moves(player, level):
     moves = ['LEFT', 'RIGHT', 'UP', 'DOWN']
 
     if player[1] == 0:
         moves.remove('LEFT')
-    if player[1] == 9:
+    if player[1] == 2 and level == 1 or player[1] == 3 and level == 2 or player[1] == 4 and level == 3 or player[1] == 5 and level == 4 or player[1] == 6 and level == 5 or player[1] == 7 and level == 6 or player[1] == 8 and level == 7 or player[1] == 9 and level == 8:
         moves.remove('RIGHT')
     if player[0] == 0:
         moves.remove('UP')
-    if player[0] == 9:
+    if player[0] == 2 and level == 1 or player[0] == 3 and level == 2 or player[0] == 4 and level == 3 or player[0] == 5 and level == 4 or player[0] == 6 and level == 5 or player[0] == 7 and level == 6 or player[0] == 8 and level == 7 or player[0] == 9 and level == 8:
         moves.remove('DOWN')
 
     return moves
@@ -143,27 +143,24 @@ def draw_map(player, level):
                80,81,82,83,84,85,86,87,88,
                90,91,92,93,94,95,96,97,98]]
     for index, cell in enumerate(GRIDS[level-1]):
-        try:
-            if index in indices[level-1]:
-                if cell == door:
-                    print(tile.format('D'), end='')
-                elif cell == monster:
-                    print(tile.format('M'), end='')
-                elif cell == player:
-                    print(tile.format('X'), end='')
-                else:
-                    print(tile.format('_'), end='')
+        if index in indices[level-1]:
+            if cell == door:
+                print(tile.format('D'), end='')
+            elif cell == monster:
+                print(tile.format('M'), end='')
+            elif cell == player:
+                print(tile.format('X'), end='')
             else:
-                if cell == door:
-                    print(tile.format('D|'))
-                elif cell == player:
-                    print(tile.format('X|'))
-                elif cell == monster:
-                    print(tile.format('M|'))
-                else:
-                    print(tile.format('_|'))
-        except IndexError:
-            print("Holy shit you made it!")
+                print(tile.format('_'), end='')
+        else:
+            if cell == door:
+                print(tile.format('D|'))
+            elif cell == player:
+                print(tile.format('X|'))
+            elif cell == monster:
+                print(tile.format('M|'))
+            else:
+                print(tile.format('_|'))
 
 
 print("Welcome to the dungeon!")
@@ -174,7 +171,7 @@ level = 1
 monster, door, player = get_locations(level)
 
 while True:
-    moves = get_moves(player)
+    moves = get_moves(player, level)
 
     print("You are currently in room {}".format(player))
     draw_map(player, level)
@@ -193,10 +190,16 @@ while True:
         continue
     if player == door:
         print("You escaped!!")
-        print("Entering level {}!".format(level + 1))
         level += 1
+        if level == 9:
+            print("\n" + "**********************")
+            print("Holy shit you made it!")
+            print("**********************" + "\n")
+            break
+        print("Entering level {}!".format(level))
         get_locations(level)
         continue
+
     elif player == monster:
         print("You were eating by the grue!")
         print("You dead now.")
