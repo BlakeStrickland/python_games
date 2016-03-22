@@ -100,7 +100,7 @@ def move_monster(monster, door, player):
         i += 1
     elif c < i:
         i -= 1
-    if d > j:
+    elif d > j:
         j += 1
     elif d < j:
         j -= 1
