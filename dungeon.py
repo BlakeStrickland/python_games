@@ -98,10 +98,10 @@ def move_monster(monster, door, player):
     #move closer to door
     if c > i:
         i += 1
-    elif c < i:
-        i -= 1
     elif d > j:
         j += 1
+    elif c < i:
+        i -= 1
     elif d < j:
         j -= 1
     else:
