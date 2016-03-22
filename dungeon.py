@@ -105,16 +105,28 @@ def move_monster(monster, door, player):
 
     return i, j
 
+def get_x(cell):
+    return cell[0]
+
+def get_y(cell):
+    return cell[1]
+
+def max_x(grid):
+    return max(grid, key=get_x[0]
+
+def max_y(grid):
+    return max(grid, key=get_y)[1]
+
 def get_moves(player, level):
     moves = ['LEFT', 'RIGHT', 'UP', 'DOWN']
 
     if player[1] == 0:
         moves.remove('LEFT')
-    if player[1] == 2 and level == 1 or player[1] == 3 and level == 2 or player[1] == 4 and level == 3 or player[1] == 5 and level == 4 or player[1] == 6 and level == 5 or player[1] == 7 and level == 6 or player[1] == 8 and level == 7 or player[1] == 9 and level == 8:
+    if player[1] == max_y(GRIDS[level-1]):
         moves.remove('RIGHT')
     if player[0] == 0:
         moves.remove('UP')
-    if player[0] == 2 and level == 1 or player[0] == 3 and level == 2 or player[0] == 4 and level == 3 or player[0] == 5 and level == 4 or player[0] == 6 and level == 5 or player[0] == 7 and level == 6 or player[0] == 8 and level == 7 or player[0] == 9 and level == 8:
+    if player[0] == max_x(GRIDS[level-1]):
         moves.remove('DOWN')
 
     return moves
