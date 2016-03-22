@@ -222,12 +222,15 @@ while True:
     if player == door:
         print("You escaped!!")
         level += 1
-        if level == 9:
-            print("\n" + "**********************")
-            print("Holy shit you made it!")
-            print("**********************" + "\n")
-            break
-        print("Entering level {}!".format(level))
+        try:
+            monster, door, player = get_locations(level)
+        except IndexError:
+            if level == 9:
+                print("\n" + "**********************")
+                print("Holy shit you made it!")
+                print("**********************" + "\n")
+                break
+            print("Entering level {}!".format(level))
         get_locations(level)
         continue
 
