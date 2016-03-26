@@ -1,66 +1,16 @@
 import random
+import sys
+import os
+import logging
+os.system("clear")
+logging.basicConfig(filename='game.log', level=logging.DEBUG)
 
-GRID1 = [(0,0), (0,1), (0,2),
-         (1,0), (1,1), (1,2),
-         (2,0), (2,1), (2,2)]
+def grid(columns, rows):
+    rows = range(rows)
+    cols = range(columns)
+    return [(y,x) for y in rows for x in cols]
 
-GRID2 = [(0,0), (0,1), (0,2), (0,3),
-         (1,0), (1,1), (1,2), (1,3),
-         (2,0), (2,1), (2,2), (2,3),
-         (3,0), (3,1), (3,2), (3,3)]
-
-GRID3 = [(0,0), (0,1), (0,2), (0,3), (0,4),
-         (1,0), (1,1), (1,2), (1,3), (1,4),
-         (2,0), (2,1), (2,2), (2,3), (2,4),
-         (3,0), (3,1), (3,2), (3,3), (3,4),
-         (4,0), (4,1), (4,2), (4,3), (4,4)]
-
-GRID4 = [(0,0), (0,1), (0,2), (0,3), (0,4), (0,5),
-         (1,0), (1,1), (1,2), (1,3), (1,4), (1,5),
-         (2,0), (2,1), (2,2), (2,3), (2,4), (2,5),
-         (3,0), (3,1), (3,2), (3,3), (3,4), (3,5),
-         (4,0), (4,1), (4,2), (4,3), (4,4), (4,5),
-         (5,0), (5,1), (5,2), (5,3), (5,4), (5,5)]
-
-GRID5 = [(0,0), (0,1), (0,2), (0,3), (0,4), (0,5), (0,6),
-         (1,0), (1,1), (1,2), (1,3), (1,4), (1,5), (1,6),
-         (2,0), (2,1), (2,2), (2,3), (2,4), (2,5), (2,6),
-         (3,0), (3,1), (3,2), (3,3), (3,4), (3,5), (3,6),
-         (4,0), (4,1), (4,2), (4,3), (4,4), (4,5), (4,6),
-         (5,0), (5,1), (5,2), (5,3), (5,4), (5,5), (5,6),
-         (6,0), (6,1), (6,2), (6,3), (6,4), (6,5), (6,6)]
-
-GRID6 = [(0,0), (0,1), (0,2), (0,3), (0,4), (0,5), (0,6), (0,7),
-         (1,0), (1,1), (1,2), (1,3), (1,4), (1,5), (1,6), (1,7),
-         (2,0), (2,1), (2,2), (2,3), (2,4), (2,5), (2,6), (2,7),
-         (3,0), (3,1), (3,2), (3,3), (3,4), (3,5), (3,6), (3,7),
-         (4,0), (4,1), (4,2), (4,3), (4,4), (4,5), (4,6), (4,7),
-         (5,0), (5,1), (5,2), (5,3), (5,4), (5,5), (5,6), (5,7),
-         (6,0), (6,1), (6,2), (6,3), (6,4), (6,5), (6,6), (6,7),
-         (7,0), (7,1), (7,2), (7,3), (7,4), (7,5), (7,6), (7,7)]
-
-GRID7 = [(0,0), (0,1), (0,2), (0,3), (0,4), (0,5), (0,6), (0,7), (0,8),
-         (1,0), (1,1), (1,2), (1,3), (1,4), (1,5), (1,6), (1,7), (1,8),
-         (2,0), (2,1), (2,2), (2,3), (2,4), (2,5), (2,6), (2,7), (2,8),
-         (3,0), (3,1), (3,2), (3,3), (3,4), (3,5), (3,6), (3,7), (3,8),
-         (4,0), (4,1), (4,2), (4,3), (4,4), (4,5), (4,6), (4,7), (4,8),
-         (5,0), (5,1), (5,2), (5,3), (5,4), (5,5), (5,6), (5,7), (5,8),
-         (6,0), (6,1), (6,2), (6,3), (6,4), (6,5), (6,6), (6,7), (6,8),
-         (7,0), (7,1), (7,2), (7,3), (7,4), (7,5), (7,6), (7,7), (7,8),
-         (8,0), (8,1), (8,2), (8,3), (8,4), (8,5), (8,6), (8,7), (8,8)]
-
-GRID8 = [(0,0), (0,1), (0,2), (0,3), (0,4), (0,5), (0,6), (0,7), (0,8), (0,9),
-         (1,0), (1,1), (1,2), (1,3), (1,4), (1,5), (1,6), (1,7), (1,8), (1,9),
-         (2,0), (2,1), (2,2), (2,3), (2,4), (2,5), (2,6), (2,7), (2,8), (2,9),
-         (3,0), (3,1), (3,2), (3,3), (3,4), (3,5), (3,6), (3,7), (3,8), (3,9),
-         (4,0), (4,1), (4,2), (4,3), (4,4), (4,5), (4,6), (4,7), (4,8), (4,9),
-         (5,0), (5,1), (5,2), (5,3), (5,4), (5,5), (5,6), (5,7), (5,8), (5,9),
-         (6,0), (6,1), (6,2), (6,3), (6,4), (6,5), (6,6), (6,7), (6,8), (6,9),
-         (7,0), (7,1), (7,2), (7,3), (7,4), (7,5), (7,6), (7,7), (7,8), (7,9),
-         (8,0), (8,1), (8,2), (8,3), (8,4), (8,5), (8,6), (8,7), (8,8), (8,9),
-         (9,0), (9,1), (9,2), (9,3), (9,4), (9,5), (9,6), (9,7), (9,8), (9,9)]
-
-GRIDS = [GRID1, GRID2, GRID3, GRID4, GRID5, GRID6, GRID7, GRID8]
+GRIDS = [grid(3,3), grid(4,4), grid(5,5), grid(6,6), grid(7,7), grid(8,8), grid(9,9), grid(10,10)]
 
 def get_locations(level):
 
@@ -92,30 +42,18 @@ def move_monster(monster, door, player):
     a, b = player
     c, d = door
     i, j = monster
-    if c > i:
+    if a-c > i or c-a > i:
         i += 1
-    elif d > j:
+    elif b-d > j or d-b:
         j += 1
-    elif c < i:
-        i -= 1
-    elif d < j:
-        j -= 1
-    else:
-        i, j
 
     return i, j
 
-def get_x(cell):
-    return cell[0]
-
-def get_y(cell):
-    return cell[1]
-
 def max_x(grid):
-    return max(grid, key=get_x)[0]
+    return max(grid)[0]
 
 def max_y(grid):
-    return max(grid, key=get_y)[1]
+    return max(grid)[1]
 
 def get_moves(player, level):
     moves = ['LEFT', 'RIGHT', 'UP', 'DOWN']
@@ -189,8 +127,8 @@ def draw_map(player, level):
         if index in indices[level-1]:
             if cell == door:
                 print(tile.format('D'), end='')
-            elif cell == monster:
-                print(tile.format('M'), end='')
+            # elif cell == monster:
+            #     print(tile.format('M'), end='')
             elif cell == player:
                 print(tile.format('X'), end='')
             else:
@@ -200,8 +138,8 @@ def draw_map(player, level):
                 print(tile.format('D|'))
             elif cell == player:
                 print(tile.format('X|'))
-            elif cell == monster:
-                print(tile.format('M|'))
+            # elif cell == monster:
+            #     print(tile.format('M|'))
             else:
                 print(tile.format('_|'))
 
@@ -217,6 +155,7 @@ while True:
     moves = get_moves(player, level)
 
     print("You are currently in room {}".format(player))
+    # sys.stdout.write("\x1b[2J\x1b[H")
     draw_map(player, level)
 
     move = input("> ")
@@ -228,10 +167,12 @@ while True:
         player = move_player(player, move)
         monster = move_monster(monster, door, player)
     else:
+        os.system("clear")
         print("** Walls are hard, stop running into them! **")
         monster = move_monster(monster, door, player)
         continue
     if player == door:
+        os.system("clear")
         print("You escaped!!")
         level += 1
         try:
@@ -250,3 +191,4 @@ while True:
         print("You were eating by the grue!")
         print("You dead now.")
         break
+    os.system("clear")
